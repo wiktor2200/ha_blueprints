@@ -1,3 +1,7 @@
+# Based on:
+# https://community.home-assistant.io/t/zha-tuya-4-button-scene-switch-ts0044/265099/62
+# https://community.home-assistant.io/t/blueprint-moes-scene-switch-zigbee-tz3000-wkai4ga5/646195
+
 blueprint:
   name: ZHA - Tuya 4-Button Scene Switch MOES
   description: Automate your Tuya 4-Button Scene Switch using ZHA events.
@@ -15,7 +19,11 @@ blueprint:
     button_one_short_press:
       name: Single Press
       description: Action to run on button 1 (Upper-left) single press
-      default: []
+      default:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_pct: 50
       selector:
         action: {}
     button_one_double_press:
