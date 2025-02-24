@@ -16,82 +16,182 @@ blueprint:
           manufacturer: _TZ3000_wkai4ga5
           model: TS0044
           multiple: false
-    button_one_short_press:
-      name: Single Press
-      description: Action to run on button 1 (Upper-left) single press
-      default:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            brightness_pct: 50
-      selector:
-        action: {}
-    button_one_double_press:
-      name: Double Press
-      description: Action to run on button 1 (Upper-left) double press
-      default: []
-      selector:
-        action: {}
-    button_one_long_press:
-      name: Long Press
-      description: Action to run on button 1 (Upper-left) long press
-      default: []
-      selector:
-        action: {}
-    button_two_short_press:
-      name: Single Press
-      description: Action to run on button 2 (Upper-right) single press
-      default: []
-      selector:
-        action: {}
-    button_two_double_press:
-      name: Double Press
-      description: Action to run on button 2 (Upper-right) double press
-      default: []
-      selector:
-        action: {}
-    button_two_long_press:
-      name: Long Press
-      description: Action to run on button 2 (Upper-right) long press
-      default: []
-      selector:
-        action: {}
-    button_three_short_press:
-      name: Single Press
-      description: Action to run on button 3 (Lower-left) single press
-      default: []
-      selector:
-        action: {}
-    button_three_double_press:
-      name: Double Press
-      description: Action to run on button 3 (Lower-left) double press
-      default: []
-      selector:
-        action: {}
-    button_three_long_press:
-      name: Long Press
-      description: Action to run on button 3 (Lower-left) long press
-      default: []
-      selector:
-        action: {}
-    button_four_short_press:
-      name: Single Press
-      description: Action to run on button 4 (Lower-right) single press
-      default: []
-      selector:
-        action: {}
-    button_four_double_press:
-      name: Double Press
-      description: Action to run on button 4 (Lower-right) double press
-      default: []
-      selector:
-        action: {}
-    button_four_long_press:
-      name: Long Press
-      description: Action to run on button 4 (Lower-right) long press
-      default: []
-      selector:
-        action: {}
+    lights_settings:
+      name: Lights settings (optional)
+      collapsed: true
+      input:
+        light1_target:
+          name: First light to manage
+          selector:
+            target:
+              entity:
+                domain: light
+        light1_init_brightness:
+          name: First light initial brightness
+          description: Initial brightness when turned on
+          default: 50
+          selector:
+            number:
+              min: 1
+              max: 100
+              unit_of_measurement: "%"
+        light1_brightness_step:
+          name: First light brightness step
+          description: Brightness step when changed
+          default: 20
+          selector:
+            number:
+              min: 5
+              max: 30
+              unit_of_measurement: "%"
+        light2_target:
+          name: Second light to manage
+          selector:
+            target:
+              entity:
+                domain: light
+        light2_init_brightness:
+          name: Second light initial brightness
+          description: Initial brightness when turned on
+          default: 50
+          selector:
+            number:
+              min: 1
+              max: 100
+              unit_of_measurement: "%"
+        light2_brightness_step:
+          name: Second light brightness step
+          description: Brightness step when changed
+          default: 20
+          selector:
+            number:
+              min: 5
+              max: 30
+              unit_of_measurement: "%"
+    button_one:
+      name: Button 1 (Upper-left) configuration
+      collapsed: true
+      input:
+        button_one_short_press:
+          name: Single Press
+          description: Action to run on button 1 (Upper-left) single press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: !input light1_init_brightness
+              target:
+                entity_id: !input light1_target
+          selector:
+            action: {}
+        button_one_double_press:
+          name: Double Press
+          description: Action to run on button 1 (Upper-left) double press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_step_pct: !input light1_brightness_step
+              target:
+                entity_id: !input light1_target
+          selector:
+            action: {}
+        button_one_long_press:
+          name: Long Press
+          description: Action to run on button 1 (Upper-left) long press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: 100
+              target:
+                entity_id: !input light1_target
+          selector:
+            action: {}
+    button_two:
+      name: Button 2 (Upper-right) configuration
+      collapsed: true
+      input:
+        button_two_short_press:
+          name: Single Press
+          description: Action to run on button 2 (Upper-right) single press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: 50
+              target:
+                entity_id: !input light2_target
+          selector:
+            action: {}
+        button_two_double_press:
+          name: Double Press
+          description: Action to run on button 2 (Upper-right) double press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_step_pct: 20
+              target:
+                entity_id: !input light2_target
+          selector:
+            action: {}
+        button_two_long_press:
+          name: Long Press
+          description: Action to run on button 2 (Upper-right) long press
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: 100
+              target:
+                entity_id: !input light2_target
+          selector:
+            action: {}
+    button_three:
+      name: Button 3 (Lower-left) configuration
+      collapsed: true
+      input:
+        button_three_short_press:
+          name: Single Press
+          description: Action to run on button 3 (Lower-left) single press
+          default: []
+          selector:
+            action: {}
+        button_three_double_press:
+          name: Double Press
+          description: Action to run on button 3 (Lower-left) double press
+          default: []
+          selector:
+            action: {}
+        button_three_long_press:
+          name: Long Press
+          description: Action to run on button 3 (Lower-left) long press
+          default: []
+          selector:
+            action: {}
+    button_four:
+      name: Button 4 (Lower-right) configuration
+      collapsed: true
+      input:
+        button_four_short_press:
+          name: Single Press
+          description: Action to run on button 4 (Lower-right) single press
+          default: []
+          selector:
+            action: {}
+        button_four_double_press:
+          name: Double Press
+          description: Action to run on button 4 (Lower-right) double press
+          default: []
+          selector:
+            action: {}
+        button_four_long_press:
+          name: Long Press
+          description: Action to run on button 4 (Lower-right) long press
+          default: []
+          selector:
+            action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
 mode: restart
 max_exceeded: silent
