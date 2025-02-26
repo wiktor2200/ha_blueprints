@@ -54,8 +54,7 @@ blueprint:
               metadata: {}
               data:
                 brightness_pct: !input light1_init_brightness
-              target:
-                entity_id: !input light1_target
+              target: !input light1_target
           selector:
             action: {}
         button_one_double_press:
