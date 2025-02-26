@@ -55,7 +55,7 @@ blueprint:
               data:
                 brightness_pct: !input light1_init_brightness
               target:
-                entity_id: "{{ light1_entity_id }}"
+                entity_id: "{{ light_entities }}"
           selector:
             action: {}
         button_one_double_press:
@@ -138,8 +138,8 @@ blueprint:
             action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
 variables:
-  light1_entity_id: "{{ light1_target.entity_id }}"
-mode: restart
+  # For a target selector, you need to extract entity_ids differently
+  light_entities: "{{ light_targets.entity_id if light_targets is mapping and light_targets.entity_id is defined else light_targets }}"mode: restart
 max_exceeded: silent
 trigger:
 - platform: event
