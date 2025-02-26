@@ -42,8 +42,6 @@ blueprint:
             number:
               min: 5
               max: 30
-    variables:
-      light1_entity_id: "{{ light1_target.entity_id }}"
     button_one:
       name: Button 1 (Upper-left) configuration
       collapsed: true
@@ -139,6 +137,8 @@ blueprint:
           selector:
             action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
+  variables:
+    light1_entity_id: "{{ light1_target.entity_id }}"
 mode: restart
 max_exceeded: silent
 trigger:
