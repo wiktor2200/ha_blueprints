@@ -42,6 +42,8 @@ blueprint:
             number:
               min: 5
               max: 30
+    variables:
+      light1_entity_id: "{{ light1_target.entity_id }}"
     button_one:
       name: Button 1 (Upper-left) configuration
       collapsed: true
@@ -54,7 +56,8 @@ blueprint:
               metadata: {}
               data:
                 brightness_pct: !input light1_init_brightness
-              target: !input light1_target
+              target:
+                entity_id: "{{ light1_entity_id }}"
           selector:
             action: {}
         button_one_double_press:
