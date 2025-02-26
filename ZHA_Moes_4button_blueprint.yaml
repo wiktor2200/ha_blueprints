@@ -139,7 +139,8 @@ blueprint:
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
 variables:
   # For a target selector, you need to extract entity_ids differently
-  light_entities: "{{ light_targets.entity_id if light_targets is mapping and light_targets.entity_id is defined else light_targets }}"mode: restart
+  light_entities: "{{ light_targets.entity_id if light_targets is mapping and light_targets.entity_id is defined else light_targets }}"
+mode: restart
 max_exceeded: silent
 trigger:
 - platform: event
