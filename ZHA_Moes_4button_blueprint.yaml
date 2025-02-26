@@ -137,8 +137,8 @@ blueprint:
           selector:
             action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
-  variables:
-    light1_entity_id: "{{ light1_target.entity_id }}"
+variables:
+  light1_entity_id: "{{ light1_target.entity_id }}"
 mode: restart
 max_exceeded: silent
 trigger:
