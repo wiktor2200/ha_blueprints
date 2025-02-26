@@ -17,7 +17,7 @@ blueprint:
           model: TS0044
           multiple: false
     lights_settings:
-      name: Lights settings (optional)
+      name: Lights settings
       collapsed: true
       input:
         light1_target:
@@ -34,7 +34,6 @@ blueprint:
             number:
               min: 1
               max: 100
-              unit_of_measurement: "%"
         light1_brightness_step:
           name: First light brightness step
           description: Brightness step when changed
@@ -43,7 +42,6 @@ blueprint:
             number:
               min: 5
               max: 30
-              unit_of_measurement: "%"
         light2_target:
           name: Second light to manage
           selector:
@@ -58,7 +56,6 @@ blueprint:
             number:
               min: 1
               max: 100
-              unit_of_measurement: "%"
         light2_brightness_step:
           name: Second light brightness step
           description: Brightness step when changed
@@ -67,7 +64,6 @@ blueprint:
             number:
               min: 5
               max: 30
-              unit_of_measurement: "%"
     button_one:
       name: Button 1 (Upper-left) configuration
       collapsed: true
