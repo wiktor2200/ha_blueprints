@@ -42,28 +42,6 @@ blueprint:
             number:
               min: 5
               max: 30
-        light2_target:
-          name: Second light to manage
-          selector:
-            target:
-              entity:
-                domain: light
-        light2_init_brightness:
-          name: Second light initial brightness
-          description: Initial brightness when turned on
-          default: 50
-          selector:
-            number:
-              min: 1
-              max: 100
-        light2_brightness_step:
-          name: Second light brightness step
-          description: Brightness step when changed
-          default: 20
-          selector:
-            number:
-              min: 5
-              max: 30
     button_one:
       name: Button 1 (Upper-left) configuration
       collapsed: true
@@ -83,25 +61,13 @@ blueprint:
         button_one_double_press:
           name: Double Press
           description: Action to run on button 1 (Upper-left) double press
-          default:
-            - action: light.turn_on
-              metadata: {}
-              data:
-                brightness_step_pct: !input light1_brightness_step
-              target:
-                entity_id: !input light1_target
+          default: []
           selector:
             action: {}
         button_one_long_press:
           name: Long Press
           description: Action to run on button 1 (Upper-left) long press
-          default:
-            - action: light.turn_on
-              metadata: {}
-              data:
-                brightness_pct: 100
-              target:
-                entity_id: !input light1_target
+          default: []
           selector:
             action: {}
     button_two:
@@ -111,37 +77,19 @@ blueprint:
         button_two_short_press:
           name: Single Press
           description: Action to run on button 2 (Upper-right) single press
-          default:
-            - action: light.turn_on
-              metadata: {}
-              data:
-                brightness_pct: 50
-              target:
-                entity_id: !input light2_target
+          default: []
           selector:
             action: {}
         button_two_double_press:
           name: Double Press
           description: Action to run on button 2 (Upper-right) double press
-          default:
-            - action: light.turn_on
-              metadata: {}
-              data:
-                brightness_step_pct: 20
-              target:
-                entity_id: !input light2_target
+          default: []
           selector:
             action: {}
         button_two_long_press:
           name: Long Press
           description: Action to run on button 2 (Upper-right) long press
-          default:
-            - action: light.turn_on
-              metadata: {}
-              data:
-                brightness_pct: 100
-              target:
-                entity_id: !input light2_target
+          default: []
           selector:
             action: {}
     button_three:
