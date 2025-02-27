@@ -18,7 +18,7 @@ blueprint:
           multiple: false
     button_one:
       name: Button 1 (Upper-left) configuration
-      collapsed: true
+      collapsed: false
       input:
         button_one_short_press:
           name: Single Press
@@ -58,7 +58,7 @@ blueprint:
             action: {}
     button_two:
       name: Button 2 (Upper-right) configuration
-      collapsed: true
+      collapsed: false
       input:
         button_two_short_press:
           name: Single Press
@@ -98,46 +98,78 @@ blueprint:
             action: {}
     button_three:
       name: Button 3 (Lower-left) configuration
-      collapsed: true
+      collapsed: false
       input:
         button_three_short_press:
           name: Single Press
           description: Action to run on button 3 (Lower-left) single press
-          default: []
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: 10
+              target:
+                entity_id: []
           selector:
             action: {}
         button_three_double_press:
           name: Double Press
           description: Action to run on button 3 (Lower-left) double press
-          default: []
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_step_pct: -20
+              target:
+                entity_id: []
           selector:
             action: {}
         button_three_long_press:
           name: Long Press
           description: Action to run on button 3 (Lower-left) long press
-          default: []
+          default:
+            - action: light.turn_off
+              metadata: {}
+              target:
+                entity_id: []
           selector:
             action: {}
     button_four:
       name: Button 4 (Lower-right) configuration
-      collapsed: true
+      collapsed: false
       input:
         button_four_short_press:
           name: Single Press
           description: Action to run on button 4 (Lower-right) single press
-          default: []
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_pct: 10
+              target:
+                entity_id: []
           selector:
             action: {}
         button_four_double_press:
           name: Double Press
           description: Action to run on button 4 (Lower-right) double press
-          default: []
+          default:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                brightness_step_pct: -20
+              target:
+                entity_id: []
           selector:
             action: {}
         button_four_long_press:
           name: Long Press
           description: Action to run on button 4 (Lower-right) long press
-          default: []
+          default:
+            - action: light.turn_off
+              metadata: {}
+              target:
+                entity_id: []
           selector:
             action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4button_blueprint.yaml
