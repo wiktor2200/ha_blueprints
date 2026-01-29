@@ -1,7 +1,7 @@
 blueprint:
   name: ZHA - Tuya 4-Button Light Controller MOES
   description: |
-    Control two light zones using a Moes 4-Button Scene Switch (TS0044).
+    Control two light zones using a Moes 4-Button Scene Switch (TS0044) using ZHA events.
 
     ZONES:
     - Left Side (Btn 1 & 3) controls Light 1
@@ -20,6 +20,9 @@ blueprint:
     - Double Press: Decrease Brightness
     - Long Press: Turn Off
 
+    CUSTOM ACTIONS:
+    Each button can trigger custom actions (scenes, scripts, automations, etc.) after the light control action completes.
+
   domain: automation
   input:
     tuya_4button_scene_switch:
@@ -31,13 +34,13 @@ blueprint:
           manufacturer: _TZ3000_wkai4ga5
           model: TS0044
           multiple: false
-    light_one:
+    light_1:
       name: Light 1 (Left Side)
       description: Controlled by Button 1 (Top) and Button 3 (Bottom)
       selector:
         entity:
           domain: light
-    light_two:
+    light_2:
       name: Light 2 (Right Side)
       description: Controlled by Button 2 (Top) and Button 4 (Bottom)
       selector:
@@ -88,6 +91,99 @@ blueprint:
       selector:
         entity:
           domain: input_number
+
+    # --- Button 1 Custom Actions ---
+    button_1:
+      name: Button 1 (Upper-left) configuration (optional)
+      collapsed: false
+      input:
+        button_1_short_press:
+          name: Single Press
+          description: Action to run on button 1 (Upper-left) single press
+          default: []
+          selector:
+            action: {}
+        button_1_double_press:
+          name: Double Press
+          description: Action to run on button 1 (Upper-left) double press
+          default: []
+          selector:
+            action: {}
+        button_1_long_press:
+          name: Long Press
+          description: Action to run on button 1 (Upper-left) long press
+          default: []
+          selector:
+            action: {}
+    # --- Button 2 Custom Actions ---
+    button_2:
+      name: Button 2 (Upper-right) configuration (optional)
+      collapsed: false
+      input:
+        button_2_short_press:
+          name: Single Press
+          description: Action to run on button 2 (Upper-right) single press
+          default: []
+          selector:
+            action: {}
+        button_2_double_press:
+          name: Double Press
+          description: Action to run on button 2 (Upper-right) double press
+          default: []
+          selector:
+            action: {}
+        button_2_long_press:
+          name: Long Press
+          description: Action to run on button 2 (Upper-right) long press
+          default: []
+          selector:
+            action: {}
+    # --- Button 3 Custom Actions ---
+    button_3:
+      name: Button 3 (Lower-left) configuration (optional)
+      collapsed: false
+      input:
+        button_3_short_press:
+          name: Single Press
+          description: Action to run on button 3 (Lower-left) single press
+          default: []
+          selector:
+            action: {}
+        button_3_double_press:
+          name: Double Press
+          description: Action to run on button 3 (Lower-left) double press
+          default: []
+          selector:
+            action: {}
+        button_3_long_press:
+          name: Long Press
+          description: Action to run on button 3 (Lower-left) long press
+          default: []
+          selector:
+            action: {}
+    # --- Button 4 Custom Actions ---
+    button_4:
+      name: Button 4 (Lower-right) configuration (optional)
+      collapsed: false
+      input:
+        button_4_short_press:
+          name: Single Press
+          description: Action to run on button 4 (Lower-right) single press
+          default: []
+          selector:
+            action: {}
+        button_4_double_press:
+          name: Double Press
+          description: Action to run on button 4 (Lower-right) double press
+          default: []
+          selector:
+            action: {}
+        button_4_long_press:
+          name: Long Press
+          description: Action to run on button 4 (Lower-right) long press
+          default: []
+          selector:
+            action: {}
   source_url: https://github.com/wiktor2200/ha_blueprints/blob/main/ZHA_Moes_4buttons_lights_blueprint.yaml
 
 mode: restart
@@ -105,8 +201,8 @@ action:
       endpoint_id: "{{ trigger.event.data.endpoint_id }}"
 
       # Inputs
-      l1: !input light_one
-      l2: !input light_two
+      l1: !input light_1
+      l2: !input light_2
       b_norm: !input brightness_normal
       b_low: !input brightness_low
       b_step: !input brightness_step
@@ -149,6 +245,15 @@ action:
               entity_id: "{{ target_light }}"
             data:
               brightness_pct: "{{ brightness_value }}"
+          - choose:
+              - conditions: "{{ endpoint_id == 1 }}"
+                sequence: !input button_1_short_press
+              - conditions: "{{ endpoint_id == 2 }}"
+                sequence: !input button_2_short_press
+              - conditions: "{{ endpoint_id == 3 }}"
+                sequence: !input button_3_short_press
+              - conditions: "{{ endpoint_id == 4 }}"
+                sequence: !input button_4_short_press
 
       # --- DOUBLE PRESS ---
       # Top: Step Up | Bottom: Step Down
@@ -159,6 +264,15 @@ action:
               entity_id: "{{ target_light }}"
             data:
               brightness_step_pct: "{{ b_step if is_top else -b_step }}"
+          - choose:
+              - conditions: "{{ endpoint_id == 1 }}"
+                sequence: !input button_1_double_press
+              - conditions: "{{ endpoint_id == 2 }}"
+                sequence: !input button_2_double_press
+              - conditions: "{{ endpoint_id == 3 }}"
+                sequence: !input button_3_double_press
+              - conditions: "{{ endpoint_id == 4 }}"
+                sequence: !input button_4_double_press
 
       # --- LONG PRESS ---
       # Top: 100% | Bottom: Off
@@ -176,3 +290,12 @@ action:
               - action: light.turn_off
                 target:
                   entity_id: "{{ target_light }}"
+          - choose:
+              - conditions: "{{ endpoint_id == 1 }}"
+                sequence: !input button_1_long_press
+              - conditions: "{{ endpoint_id == 2 }}"
+                sequence: !input button_2_long_press
+              - conditions: "{{ endpoint_id == 3 }}"
+                sequence: !input button_3_long_press
+              - conditions: "{{ endpoint_id == 4 }}"
+                sequence: !input button_4_long_press
